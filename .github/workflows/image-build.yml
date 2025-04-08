@@ -33,7 +33,7 @@ jobs:
       
       - name: Build and tag Docker image
         run: |
-          docker buildx build --cache-from=type=local,source=/tmp/.buildx-cache --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max -t ghcr.io/${{ github.repository }}/django-boiler:latest .
+          docker buildx build --cache-from=type=local,source=/tmp/.buildx-cache --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max -t ghcr.io/${{ github.repository }}/django-boiler:latest --push --load .
           docker tag ghcr.io/${{ github.repository }}/django-boiler:latest ghcr.io/${{ github.repository }}/django-boiler:${{ github.sha }}
 
       - name: Push Docker image to GitHub Container Registry
