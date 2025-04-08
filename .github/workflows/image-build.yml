@@ -86,5 +86,5 @@ jobs:
 
       - name: Push image
         run: |
-          docker push ghcr.io/${{ github.repository }}/your-image-name:latest
-          docker push ghcr.io/${{ github.repository }}/your-image-name:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository }}/django-boiler:latest
+          docker push ghcr.io/${{ github.repository }}/django-boiler:${{ github.sha }}
