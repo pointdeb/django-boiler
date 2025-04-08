@@ -41,7 +41,8 @@ jobs:
             --cache-from=type=local,src=/tmp/.buildx-cache \
             --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
             -t ghcr.io/${{ github.repository }}/django-boiler:latest \
-            --load --no-cache .
+            --load .
+          docker save ghcr.io/${{ github.repository }}/django-boiler:latest -o /tmp/django-boiler.tar
 
   clean-code:
     runs-on: ubuntu-latest
@@ -62,7 +63,7 @@ jobs:
 
       - name: Load Docker image from cache
         run: |
-          docker load -i /tmp/.buildx-cache
+          docker load -i /tmp/django-boiler.tar
 
       - name: Run command inside Docker image
         run: |
