@@ -28,7 +28,8 @@
 				"ms-azuretools.vscode-docker",
 				"johnpapa.angular-essentials",
 				"Angular.ng-template",
-				"ms-python.flake8"
+				"ms-python.flake8",
+				"github.vscode-github-actions"
 			]
 		}
 	}
