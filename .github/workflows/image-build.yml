@@ -1,0 +1,34 @@
+name: Build image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and tag Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/django-boiler:latest .
+          docker tag ghcr.io/${{ github.repository }}/django-boiler:latest ghcr.io/${{ github.repository }}/django-boiler:${{ github.sha }}
+
+      - name: Push Docker image to GitHub Container Registry
+        run: |
+          docker push ghcr.io/${{ github.repository }}/django-boiler:latest
+          docker push ghcr.io/${{ github.repository }}/django-boiler:${{ github.sha }}
