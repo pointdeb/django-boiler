@@ -68,7 +68,7 @@ jobs:
         run: |
           docker run --rm ghcr.io/${{ github.repository }}/django-boiler:latest sh scripts/clean_code.sh
 
-  push-image:
+  publish-image:
     runs-on: ubuntu-latest
     needs: clean-code
     steps:
@@ -84,7 +84,7 @@ jobs:
       - name: Load Docker image from tarball
         run: docker load -i ./docker-image/django-boiler.tar
 
-      - name: Push image
+      - name: Publish image
         run: |
           docker push ghcr.io/${{ github.repository }}/django-boiler:latest
           docker push ghcr.io/${{ github.repository }}/django-boiler:${{ github.sha }}
