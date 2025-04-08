@@ -27,13 +27,12 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          key: ${{ runner.os }}-buildx-django-boiler
           restore-keys: |
             ${{ runner.os }}-buildx-
       
       - name: Build and tag Docker image
         run: |
-          mkdir -p /tmp/.buildx-cache
           docker buildx build --cache-from=type=local,source=/tmp/.buildx-cache --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max -t ghcr.io/${{ github.repository }}/django-boiler:latest --push .
 
       - name: Push Docker image to GitHub Container Registry
