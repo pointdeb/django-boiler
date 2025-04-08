@@ -37,6 +37,7 @@ jobs:
 
           # Build and push Docker image with cache
           docker buildx build \
+            --file ./Dockerfile \
             --cache-from=type=local,source=/tmp/.buildx-cache \
             --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
             -t ghcr.io/${{ github.repository }}/django-boiler:latest \
