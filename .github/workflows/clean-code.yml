@@ -20,4 +20,4 @@ jobs:
         pip install -r ./requirements.txt
     - name: Analysing the code with linter
       run: |
-        scripts/clean_code.sh
+        bash scripts/clean_code.sh
