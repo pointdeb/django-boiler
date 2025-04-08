@@ -1,0 +1,44 @@
+volumes:
+  db-data:
+  static-data:
+
+services:
+  postgres:
+    image: postgres:17.4-alpine
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  
+  app:
+    image: docker.local/django-boiler
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      - APP_ENV=${APP_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - static-data:/var/www/static_files:cached
+      - .:/var/www
+
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - static-data:/var/www/static_files:cached
+      - ./scripts/default.conf:/etc/nginx/conf.d/default.conf
