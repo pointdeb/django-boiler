@@ -3,6 +3,8 @@ FROM python:3.13-bullseye
 RUN apt-get update; apt-get -y install --no-install-recommends --no-install-suggests git postgresql curl
 RUN pip install -U pip
 
+RUN locale-gen en_US.UTF-8
+
 WORKDIR /var/www
 
 COPY ./requirements.txt .
@@ -19,5 +21,6 @@ ARG DB_HOST
 ARG DB_PASSWORD
 ARG DB_PORT=5432
 ARG APP_ENV=DEVELOPMENT
+
 
 CMD [ "/var/www/scripts/start.sh" ]

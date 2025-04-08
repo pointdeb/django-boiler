@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 # set -x
 export PG_PASSWORD=$DB_PASSWORD
 # tail -f /dev/null
