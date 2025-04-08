@@ -1,9 +1,10 @@
-FROM python:3.13-bullseye
+FROM python:3.13-alpine
 
-RUN apt-get update; apt-get -y install --no-install-recommends --no-install-suggests git postgresql curl
+RUN apk add --no-cache git postgresql-client curl
 RUN pip install -U pip
 
-RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 
 WORKDIR /var/www
 
@@ -18,7 +19,6 @@ EXPOSE 8080 8081 4200
 ARG DB_NAME
 ARG DB_USER
 ARG DB_HOST
-ARG DB_PASSWORD
 ARG DB_PORT=5432
 ARG APP_ENV=DEVELOPMENT
 
