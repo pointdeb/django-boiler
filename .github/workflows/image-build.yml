@@ -41,7 +41,7 @@ jobs:
             --cache-from=type=local,src=/tmp/.buildx-cache \
             --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
             -t ghcr.io/${{ github.repository }}/django-boiler:latest \
-            --load .
+            --load --no-cache .
 
   clean-code:
     runs-on: ubuntu-latest
