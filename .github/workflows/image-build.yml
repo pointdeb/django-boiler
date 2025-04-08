@@ -19,7 +19,7 @@ jobs:
 
       - name: Generate cache key
         id: cache-key
-        run: echo "key=${{ runner.os }}-buildx-django-boiler-${{ github.sha }}" >> $GITHUB_OUTPUT
+        run: echo "key=${{ runner.os }}-buildx-django-boiler" >> $GITHUB_OUTPUT
 
       - name: Cache Docker layers
         uses: actions/cache@v3
